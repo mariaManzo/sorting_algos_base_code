@@ -110,10 +110,38 @@ function heapsort()
 }
 
 
-  function quicksort()
+  function quicksort_recursif(tab, gauche, droite)
   {
+    let mur = gauche;
+    let courant = mur;
+    let pivot = droite;
+    let taille = tab.length;
 
+    // placer à gauche de mur tous les éléments plus petits et à droite les plus grands
+    while (courant < taille){
+      if(isLess(courant,pivot)){
+        if (mur !== courant){
+          swap(courant, mur);
+        }
+        mur++;
+      }
+      courant++;
+    }
+    //placer le pivot à la place de mur
+    swap(mur, pivot);
+
+    // on poursuit par la récursivité (tri du sous-tableau à gauche du mur et tri du sous-tableau à droite du mur)
+    if(gauche < mur-1){
+      quicksort_recursif(tab, gauche, mur-1);
+    }
+    if (mur+1 < droite){
+      quicksort_recursif(tab, mur, droite);
+    }
   }
+
+   function quicksort(){
+    quicksort_recursif(csvData, 0, csvData.length-1);
+   }
 
 
 
